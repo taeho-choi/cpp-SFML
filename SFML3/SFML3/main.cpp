@@ -30,22 +30,44 @@ int main()
 			}
 			if (e.type == Event::KeyPressed) {
 				if (e.key.code == Keyboard::Left) {
-					playerVector.x = -0.1f;
+					if(playerVector.x >= 0) playerVector.x -= playerSpeed;
 				}
 				else if (e.key.code == Keyboard::Right) {
-					playerVector.x = 0.1f;
+					if(playerVector.x <= 0) playerVector.x += playerSpeed;
+				}
+				if (e.key.code == Keyboard::Up) {
+					if (playerVector.y >= 0) playerVector.y -= playerSpeed;
+				}
+				else if (e.key.code == Keyboard::Down) {
+					if (playerVector.y <= 0) playerVector.y += playerSpeed;
+				}
+				if (e.key.code == Keyboard::Escape) {
+					win.close();
+					break;
 				}
 			}
 			else if (e.type == Event::KeyReleased) {
-				playerVector.x = 0;
+				if (e.key.code == Keyboard::Left) {
+					if(playerVector.x <= 0) playerVector.x += playerSpeed;
+				}
+				else if (e.key.code == Keyboard::Right) {
+					if(playerVector.x >= 0) playerVector.x -= playerSpeed;
+				}
+				if (e.key.code == Keyboard::Up) {
+					if (playerVector.y <= 0) playerVector.y += playerSpeed;
+				}
+				else if (e.key.code == Keyboard::Down) {
+					if (playerVector.y >= 0) playerVector.y -= playerSpeed;
+				}
 			}
 
 		}
 
 		Time diff = clock.restart();
-		//diff.
-	
-		spPlayer.move(playerVector);
+		float frameTime = diff.asSeconds();
+		float dx = playerVector.x * frameTime;
+		float dy = playerVector.y * frameTime;
+		spPlayer.move(dx, dy);
 		win.draw(spBg);
 		win.draw(spPlayer);
 		win.display();
