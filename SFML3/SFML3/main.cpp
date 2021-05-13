@@ -16,6 +16,11 @@ int main()
 	txPlayer.loadFromFile("res/player.png");
 	spPlayer.setTexture(txPlayer);
 
+	Vector2f playerVector;
+	const int playerSpeed = 300;
+
+	Clock clock;
+
 	while (win.isOpen()) {
 		Event e;
 		while (win.pollEvent(e)) {
@@ -25,19 +30,22 @@ int main()
 			}
 			if (e.type == Event::KeyPressed) {
 				if (e.key.code == Keyboard::Left) {
-					spPlayer.move(-10, 0);
+					playerVector.x = -0.1f;
 				}
 				else if (e.key.code == Keyboard::Right) {
-					spPlayer.move(10, 0);
-				}
-				if (e.key.code == Keyboard::Up) {
-					spPlayer.move(0, -10);
-				}
-				else if (e.key.code == Keyboard::Down) {
-					spPlayer.move(0, 10);
+					playerVector.x = 0.1f;
 				}
 			}
+			else if (e.type == Event::KeyReleased) {
+				playerVector.x = 0;
+			}
+
 		}
+
+		Time diff = clock.restart();
+		//diff.
+	
+		spPlayer.move(playerVector);
 		win.draw(spBg);
 		win.draw(spPlayer);
 		win.display();
