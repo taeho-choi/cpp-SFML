@@ -7,9 +7,13 @@ class Player : public MovingSprite
 {
 	int life;
 	Texture texture;
+	Sprite hearts[PLAYER_FULL_LIFE];
+	Texture whiteHeartTexture;
+	Texture redHeartTexture;
 public:
 	Player();
 	void handleEvent(Event& e);
 	void moveToCenter(void);
 	virtual void update();
+	void draw(RenderWindow& win);
 };
