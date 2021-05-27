@@ -6,14 +6,27 @@ float Game::frameTime;
 
 Game::Game(RenderWindow& win) : win{ win }
 {
+	inPlay = true;
+
 	txBg.loadFromFile("res/outerspace.png");
 	spBg.setTexture(txBg);
 
 	txBall.loadFromFile("res/missile.png");
+
+	txGameOver.loadFromFile("res/gameover.png");
+	spGameOver.setTexture(txGameOver);
+	Vector2u size = txGameOver.getSize();
+	spGameOver.setPosition(
+		(WINDOW_WIDTH - size.x) / 2.0f,
+		(WINDOW_HEIGHT - size.y) / 2.0f
+	);
 }
 
 void Game::update(void)
 {
+	if (!inPlay) {
+		return;
+	}
 	Time diff = clock.restart();
 	frameTime = diff.asSeconds();
 
@@ -35,6 +48,7 @@ void Game::update(void)
 			bool alive = spPlayer.decreaseLife();
 			if (!alive) {
 				printf("Dead. Gameover screen should follow\n");
+				inPlay = false;
 			}
 			printf("[Collision !!!] %d\n", balls.size());
 			break;
@@ -53,6 +67,10 @@ void Game::draw(void)
 		win.draw(ball);
 	}
 	spPlayer.draw(win);
+
+	if (!inPlay) {
+		win.draw(spGameOver);
+	}
 	//win.draw(spPlayer);
 }
 

@@ -32,10 +32,13 @@ private:
 	Texture txBg;
 
 	Player spPlayer;
-	Texture txPlayer;
+	bool inPlay;
 
 	std::vector<Ball> balls;
 	Texture txBall;
+
+	Sprite spGameOver;
+	Texture txGameOver;
 
 	Clock clock;
 };
