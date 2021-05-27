@@ -17,6 +17,7 @@ public:
 	virtual void update();
 	void draw(RenderWindow& win);
 	bool decreaseLife();
+	bool increaseLife();
 
 private:
 	void updateHearts();
