@@ -16,4 +16,8 @@ public:
 	void moveToCenter(void);
 	virtual void update();
 	void draw(RenderWindow& win);
+	bool decreaseLife();
+
+private:
+	void updateHearts();
 };
