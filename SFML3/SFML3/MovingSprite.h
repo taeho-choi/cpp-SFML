@@ -5,11 +5,15 @@ using namespace sf;
 
 class MovingSprite : public Sprite
 {
-private:
-	Vector2f vector;
 public:
-	void setVector(const Vector2f &vector);
-	const Vector2f getVetor();
-	void Update();
+	void setVector(const Vector2f& vector);
+	const Vector2f& getVector();
+	virtual void update();
+	bool collides(MovingSprite& sprite);
+	void setTexture(const Texture& texture);
+	Vector2f getCenter();
+	float getRadius();
+protected:
+	Vector2f vector;
+	Vector2u size;
 };
-
