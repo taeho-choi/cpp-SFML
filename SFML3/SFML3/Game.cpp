@@ -106,11 +106,13 @@ void Game::draw(void)
 
 void Game::handleEvent(Event& e)
 {
-	//if (e.type == Event::KeyPressed) {
-	//	if (e.key.code == Keyboard::Space) {
-	//		generateBall();
-	//	}
-	//}
+	if (e.type == Event::KeyPressed) {
+		if (e.key.code == Keyboard::Enter) {
+			if (!inPlay) {
+				startGame();
+			}
+		}
+	}
 
 	spPlayer.handleEvent(e);
 }
@@ -126,6 +128,14 @@ void Game::generateItem(void)
 {
 	Ball item(txItem, false);
 	items.push_back(item);
+}
+
+void Game::startGame(void)
+{
+	balls.clear();
+	items.clear();
+	spPlayer.reset();
+	inPlay = true;
 }
 
 static std::mt19937 rnd_engine;

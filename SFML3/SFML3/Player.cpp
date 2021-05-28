@@ -120,6 +120,13 @@ bool Player::increaseLife()
 	return true;
 }
 
+void Player::reset()
+{
+	life = PLAYER_FULL_LIFE;
+	updateHearts();
+	moveToCenter();
+}
+
 void Player::updateHearts()
 {
 	for (int i = 0; i < PLAYER_FULL_LIFE; i++) {

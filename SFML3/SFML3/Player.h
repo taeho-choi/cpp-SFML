@@ -18,6 +18,7 @@ public:
 	void draw(RenderWindow& win);
 	bool decreaseLife();
 	bool increaseLife();
+	void reset();
 
 private:
 	void updateHearts();

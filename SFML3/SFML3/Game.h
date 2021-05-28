@@ -27,6 +27,7 @@ public:
 private:
 	void generateBall(void);
 	void generateItem(void);
+	void startGame(void);
 
 	RenderWindow& win;
 
