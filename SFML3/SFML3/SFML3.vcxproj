@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Highscore.cpp" />
     <ClCompile Include="MovingSprite.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -28,6 +29,7 @@
   <ItemGroup>
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Highscore.h" />
     <ClInclude Include="MovingSprite.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>
