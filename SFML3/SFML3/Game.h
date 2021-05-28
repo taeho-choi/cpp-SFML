@@ -28,6 +28,7 @@ private:
 	void generateBall(void);
 	void generateItem(void);
 	void startGame(void);
+	void updateScore(void);
 
 	RenderWindow& win;
 
@@ -47,4 +48,7 @@ private:
 	Texture txGameOver;
 
 	Clock clock;
+	Text scoreText;
+	Font scoreFont;
+	float scoreValue;
 };

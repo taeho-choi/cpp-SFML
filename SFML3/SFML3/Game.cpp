@@ -1,6 +1,6 @@
 #include "Game.h"
-
-#define MAX_BALL_COUNT 10
+#pragma warning(disable: 4996)
+#define INITIAL_MAX_BALL_COUNT 10
 #define MAX_ITEM_COUNT 3
 
 float Game::frameTime;
@@ -23,15 +23,24 @@ Game::Game(RenderWindow& win) : win{ win }
 		(WINDOW_WIDTH - size.x) / 2.0f,
 		(WINDOW_HEIGHT - size.y) / 2.0f
 	);
+	scoreFont.loadFromFile("font/BAUHS93.ttf");
+	scoreText.setFont(scoreFont);
+	scoreText.setPosition(50.f, 50.f);
+	scoreText.setCharacterSize(24);
+	scoreText.setFillColor(sf::Color::Yellow);
 }
 
 void Game::update(void)
 {
+	Time diff = clock.restart();
+	frameTime = diff.asSeconds();
+
 	if (!inPlay) {
 		return;
 	}
-	Time diff = clock.restart();
-	frameTime = diff.asSeconds();
+
+	scoreValue += frameTime;
+	updateScore();
 
 	spPlayer.update();
 
@@ -78,7 +87,8 @@ void Game::update(void)
 		}
 	}
 
-	if (balls.size() < MAX_BALL_COUNT) {
+	int maxBallCount = INITIAL_MAX_BALL_COUNT + (int)(scoreValue / 10);
+	if (balls.size() < maxBallCount) {
 		generateBall();
 	}
 	if (items.size() < MAX_ITEM_COUNT) {
@@ -101,6 +111,8 @@ void Game::draw(void)
 	if (!inPlay) {
 		win.draw(spGameOver);
 	}
+
+	win.draw(scoreText);
 	//win.draw(spPlayer);
 }
 
@@ -119,23 +131,33 @@ void Game::handleEvent(Event& e)
 
 void Game::generateBall(void)
 {
-	Ball ball(txBall);
+	float rate = 1.0f + scoreValue / 60.f;
+	Ball ball(txBall, rate, true);
 	balls.push_back(ball);
 	printf("[+]Ball count = %d\n", balls.size());
 }
 
 void Game::generateItem(void)
 {
-	Ball item(txItem, false);
+	float rate = 1.0f + scoreValue / 60.f;
+	Ball item(txItem, rate, false);
 	items.push_back(item);
 }
 
 void Game::startGame(void)
 {
+	scoreValue = 0.0f;
 	balls.clear();
 	items.clear();
 	spPlayer.reset();
 	inPlay = true;
+}
+
+void Game::updateScore(void)
+{
+	char buff[30];
+	sprintf(buff, "Score : %.1f", scoreValue);
+	scoreText.setString(buff);
 }
 
 static std::mt19937 rnd_engine;

@@ -3,6 +3,6 @@
 class Ball : public MovingSprite
 {
 public:
-	Ball(Texture& texture, bool randomSized = true);
+	Ball(Texture& texture, float speedRate = 1, bool randomSized = true);
 	bool isOutOfScreen(void);
 };
